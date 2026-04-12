@@ -20,80 +20,80 @@ Urutan berikut disusun agar alur belajarnya lebih runtut: mulai dari pemahaman p
 Pengantar penetration testing sebagai fondasi sebelum masuk ke teknik teknis.
 
 Materi utama:
-- definisi dan tujuan penetration testing
-- klasifikasi pentest: external/internal, blackbox/greybox/whitebox
-- aspek legal dan etika dalam pengujian
-- fase pentest: pre-engagement, information gathering, vulnerability assessment, exploitation, post-exploitation, lateral movement, proof-of-concept, dan post-engagement
-- metodologi dan framework umum seperti OSSTMM, OWASP, PTES, ISSAF, dan NIST
+- Definisi dan Tujuan Penetration Testing
+- Klasifikasi Pentest: External/Internal, Blackbox/Greybox/Whitebox
+- Aspek Legal dan Etika dalam Pengujian
+- Fase Pentest: Pre-Engagement, Information Gathering, Vulnerability Assessment, Exploitation, Post-Exploitation, Lateral Movement, Proof-of-Concept, dan Post-Engagement
+- Metodologi dan Framework Umum seperti OSSTMM, OWASP, PTES, ISSAF, dan NIST
 
 ### 2. [Recon](./Recon/README.md)
 
 Modul pengumpulan informasi awal terhadap target untuk memahami permukaan serangan.
 
 Materi utama:
-- alasan reconnaissance menjadi tahap penting
-- pengenalan tools recon dan digital footprinting
-- penggunaan `nmap` untuk service scanning
-- penggunaan `rustscan` untuk port scanning cepat
-- penggunaan `gobuster` untuk directory enumeration
-- verifikasi kerentanan service dengan NSE script pada `nmap`
-- subdomain enumeration menggunakan `subfinder`
+- Alasan Reconnaissance Menjadi Tahap Penting
+- Pengenalan Tools Recon dan Digital Footprinting
+- Penggunaan `nmap` untuk Service Scanning
+- Penggunaan `rustscan` untuk Port Scanning Cepat
+- Penggunaan `gobuster` untuk Directory Enumeration
+- Verifikasi Kerentanan Service dengan NSE Script pada `nmap`
+- Subdomain Enumeration menggunakan `subfinder`
 
 ### 3. [Vulnerability Assesment](./Vulnerability%20Assessment/README.md)
 
 Pengantar vulnerability scanning dan cara memahami hasilnya secara benar.
 
 Materi utama:
-- definisi vulnerability scanning / vulnerability assessment
-- metode SAST dan DAST
-- tools umum seperti Acunetix, Nessus, Nuclei, Nikto, dan WPScan
-- contoh penggunaan tools untuk scanning target
-- pentingnya validasi manual untuk menghindari false positive
+- Definisi Vulnerability Scanning / Vulnerability Assessment
+- Metode SAST dan DAST
+- Tools Umum seperti Acunetix, Nessus, Nuclei, Nikto, dan WPScan
+- Contoh Penggunaan Tools untuk Scanning Target
+- Pentingnya Validasi Manual untuk Menghindari False Positive
 
 ### 4. [Directory Traversal](./Directory%20Traversal/README.md)
 
 Pengenalan kerentanan directory traversal yang memungkinkan akses file di luar direktori yang semestinya.
 
 Materi utama:
-- deskripsi dan dampak directory traversal
-- contoh alur eksploitasi melalui parameter yang tidak tersanitasi
-- cara mengidentifikasi parameter yang dapat dimanipulasi
-- contoh pembacaan file sensitif seperti `/etc/passwd`
-- ilustrasi risiko kebocoran file internal dan kredensial
+- Deskripsi dan Dampak Directory Traversal
+- Contoh Alur Eksploitasi melalui Parameter yang Tidak Tersanitasi
+- Cara Mengidentifikasi Parameter yang Dapat Dimanipulasi
+- Contoh Pembacaan File Sensitif seperti `/etc/passwd`
+- Ilustrasi Risiko Kebocoran File Internal dan Kredensial
 
 ### 5. [File Inclusion & Upload](./File%20Inclusion%20%26%20Upload/README.md)
 
 Pembahasan dua kerentanan berbeda yang sering berujung pada pembacaan file sensitif atau eksekusi kode.
 
 Materi utama:
-- definisi Local File Inclusion (LFI)
-- cara kerja LFI dan contoh eksploitasi
-- mitigasi LFI dengan validasi input dan whitelist
-- definisi file upload vulnerability
-- teknik bypass upload seperti double extension, null byte, dan manipulasi konten
-- mitigasi file upload dengan validasi tipe, ukuran, dan penyimpanan file yang aman
+- Definisi Local File Inclusion (LFI)
+- Cara Kerja LFI dan Contoh Eksploitasi
+- Mitigasi LFI dengan Validasi Input dan Whitelist
+- Definisi File Upload Vulnerability
+- Teknik Bypass Upload seperti Double Extension, Null Byte, dan Manipulasi Konten
+- Mitigasi File Upload dengan Validasi Tipe, Ukuran, dan Penyimpanan File yang Aman
 
 ### 6. [SQL Injection](./SQL%20Injection/README.md)
 
 Modul pengenalan SQL Injection, mulai dari bentuk dasar sampai teknik blind.
 
 Materi utama:
-- basic SQL injection dan auth bypass
-- visible error-based SQL injection
-- union-based SQL injection
-- blind SQL injection
-- time-based blind SQL injection
-- condition-based blind SQL injection
-- tips eksfiltrasi data, cheat sheet, dan penggunaan `sqlmap`
-- mitigasi seperti sanitasi input, parameterized query, dan pemanfaatan framework/ORM
+- Basic SQL Injection dan Auth Bypass
+- Visible Error-Based SQL Injection
+- Union-Based SQL Injection
+- Blind SQL Injection
+- Time-Based Blind SQL Injection
+- Condition-Based Blind SQL Injection
+- Tips Eksfiltrasi Data, Cheat Sheet, dan Penggunaan `sqlmap`
+- Mitigasi seperti Sanitasi Input, Parameterized Query, dan Pemanfaatan Framework/ORM
 
 ### 7. [XSS](./XSS/README.md)
 
 Pengenalan cross-site scripting sebagai kerentanan yang menyerang sisi browser pengguna.
 
 Materi utama:
-- definisi dan cara kerja XSS
-- tipe XSS: reflected, stored, dan DOM-based
-- contoh payload dan skenario serangan
-- dampak XSS berdasarkan konteks aplikasi dan hak akses korban
-- pencegahan melalui filtering input, output encoding, header yang tepat, dan Content Security Policy
+- Definisi dan Cara Kerja XSS
+- Tipe XSS: Reflected, Stored, dan DOM-Based
+- Contoh Payload dan Skenario Serangan
+- Dampak XSS Berdasarkan Konteks Aplikasi dan Hak Akses Korban
+- Pencegahan melalui Filtering Input, Output Encoding, Header yang Tepat, dan Content Security Policy
